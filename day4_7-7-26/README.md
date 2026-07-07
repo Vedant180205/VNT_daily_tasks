@@ -84,3 +84,56 @@ We created a comprehensive JSON Postman collection featuring 5 specific POST req
 3. **Too Many Images:** Uploading 6+ gallery images to trigger the backend limit (Expect 400).
 4. **Wrong File Type:** Attempting to upload PDFs or text files to trigger the Multer fileFilter (Expect 400).
 5. **Large File:** Attempting to upload a >2MB file to trigger the Multer size limit (Expect 400).
+
+---
+
+## ⚙️ 7. Setup & Run Configuration
+
+Follow these steps to run the complete stack locally:
+
+### 1. Database Setup (MySQL)
+1. Ensure MySQL is running on your machine on port `3306`.
+2. Execute the `.sql` migration files located in `backend/migrations/` sequentially, or run the automated script if configured.
+3. Verify the `player_management` database is created with the `players`, `users`, and `teams` tables.
+
+### 2. Backend Configuration
+1. Navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Create a `.env` file using the `.env.example` template:
+   ```env
+   PORT=3000
+   DB_HOST=localhost
+   DB_PORT=3306
+   DB_NAME=player_management
+   DB_USER=root
+   DB_PASSWORD=your_password
+   JWT_SECRET=your_jwt_secret
+   ```
+4. Start the backend development server:
+   ```bash
+   npm run dev
+   ```
+   *(The server will run on `http://localhost:3000`)*
+
+### 3. Frontend Configuration
+1. Open a new terminal and navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the Vite development server:
+   ```bash
+   npm run dev
+   ```
+   *(The app will launch on `http://localhost:5173`)*
+
+**Note on File Uploads:** Ensure that you do not delete the `backend/uploads/` directory during testing, as this is where the local `multer` instance stores all media files. This folder is securely ignored by git.
