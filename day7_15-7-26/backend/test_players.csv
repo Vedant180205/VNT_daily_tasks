@@ -1,0 +1,7 @@
+name,email,phone,team_id
+John Doe,john.doe@example.com,1234567890,1
+Jane Smith,jane.smith@example.com,0987654321,1
+Mike Johnson,mike.j@example.com,1112223333,2
+Duplicate Doe,john.doe@example.com,9998887777,2
+Missing Team,missing@example.com,5554443333,
+Emma Watson,emma.w@example.com,7778889999,3
