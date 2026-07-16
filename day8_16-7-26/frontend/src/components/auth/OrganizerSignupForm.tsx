@@ -1,8 +1,9 @@
-﻿import React, { useState } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { DocumentUploader } from './DocumentUploader';
+import { State, City } from 'country-state-city';
 
 const schema = z.object({
   full_name: z.string().min(1, 'Full name is required'),
@@ -37,10 +38,28 @@ export const OrganizerSignupForm: React.FC<OrganizerSignupFormProps> = ({ onSubm
   const {
     register,
     handleSubmit,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
+
+  const watchedState = watch('state');
+
+  // Compute available cities when state changes
+  const cities = useMemo(() => {
+    if (!watchedState) return [];
+    const allStates = State.getStatesOfCountry('IN');
+    const selectedStateObj = allStates.find(s => s.name === watchedState);
+    if (!selectedStateObj) return [];
+    return City.getCitiesOfState('IN', selectedStateObj.isoCode);
+  }, [watchedState]);
+
+  // Reset city when state changes
+  useEffect(() => {
+    setValue('city', '');
+  }, [watchedState, setValue]);
 
   const handleFormSubmit = (data: FormData) => {
     if (documents.length === 0) {
@@ -132,15 +151,37 @@ export const OrganizerSignupForm: React.FC<OrganizerSignupFormProps> = ({ onSubm
         </div>
         
         <div>
-          <label className={labelClass}>City</label>
-          <input type="text" {...register('city')} className={inputClass} placeholder="Mumbai" disabled={isLoading} />
-          {errors.city && <p className="text-xs text-danger mt-1">{errors.city.message}</p>}
-        </div>
-        
-        <div>
           <label className={labelClass}>State</label>
-          <input type="text" {...register('state')} className={inputClass} placeholder="Maharashtra" disabled={isLoading} />
+          <select 
+            {...register('state')} 
+            className={inputClass} 
+            disabled={isLoading}
+          >
+            <option value="" className="text-gray-900 bg-white">Select State</option>
+            {State.getStatesOfCountry('IN').map(state => (
+              <option key={state.isoCode} value={state.name} className="text-gray-900 bg-white">
+                {state.name}
+              </option>
+            ))}
+          </select>
           {errors.state && <p className="text-xs text-danger mt-1">{errors.state.message}</p>}
+        </div>
+
+        <div>
+          <label className={labelClass}>City</label>
+          <select 
+            {...register('city')} 
+            className={inputClass} 
+            disabled={isLoading || !watchedState}
+          >
+            <option value="" className="text-gray-900 bg-white">Select City</option>
+            {cities.map(city => (
+              <option key={city.name} value={city.name} className="text-gray-900 bg-white">
+                {city.name}
+              </option>
+            ))}
+          </select>
+          {errors.city && <p className="text-xs text-danger mt-1">{errors.city.message}</p>}
         </div>
         
         <div>
