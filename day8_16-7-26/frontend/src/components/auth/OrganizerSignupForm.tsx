@@ -3,7 +3,17 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { DocumentUploader } from './DocumentUploader';
-import { State, City } from 'country-state-city';
+import { apiClient } from '../../api/axios';
+
+interface LocationState {
+  id: number;
+  name: string;
+}
+
+interface LocationCity {
+  id: number;
+  name: string;
+}
 
 const schema = z.object({
   full_name: z.string().min(1, 'Full name is required'),
@@ -46,15 +56,46 @@ export const OrganizerSignupForm: React.FC<OrganizerSignupFormProps> = ({ onSubm
   });
 
   const watchedState = watch('state');
+  
+  const [dbStates, setDbStates] = useState<LocationState[]>([]);
+  const [dbCities, setDbCities] = useState<LocationCity[]>([]);
 
-  // Compute available cities when state changes
-  const cities = useMemo(() => {
-    if (!watchedState) return [];
-    const allStates = State.getStatesOfCountry('IN');
-    const selectedStateObj = allStates.find(s => s.name === watchedState);
-    if (!selectedStateObj) return [];
-    return City.getCitiesOfState('IN', selectedStateObj.isoCode);
-  }, [watchedState]);
+  // Fetch Indian states on mount (India ID = 101)
+  useEffect(() => {
+    let isMounted = true;
+    apiClient.get('/api/locations/countries/101/states')
+      .then(res => {
+        if (isMounted && res.data?.success) {
+          setDbStates(res.data.data);
+        }
+      })
+      .catch(err => console.error("Failed to load states", err));
+    return () => { isMounted = false };
+  }, []);
+
+  // Fetch cities when state changes
+  useEffect(() => {
+    let isMounted = true;
+    if (!watchedState) {
+      setDbCities([]);
+      return;
+    }
+
+    const selectedStateObj = dbStates.find(s => s.name === watchedState);
+    if (selectedStateObj) {
+      apiClient.get(`/api/locations/states/${selectedStateObj.id}/cities`)
+        .then(res => {
+          if (isMounted && res.data?.success) {
+            setDbCities(res.data.data);
+          }
+        })
+        .catch(err => console.error("Failed to load cities", err));
+    } else {
+      setDbCities([]);
+    }
+    
+    return () => { isMounted = false };
+  }, [watchedState, dbStates]);
 
   // Reset city when state changes
   useEffect(() => {
@@ -155,11 +196,11 @@ export const OrganizerSignupForm: React.FC<OrganizerSignupFormProps> = ({ onSubm
           <select 
             {...register('state')} 
             className={inputClass} 
-            disabled={isLoading}
+            disabled={isLoading || dbStates.length === 0}
           >
             <option value="" className="text-gray-900 bg-white">Select State</option>
-            {State.getStatesOfCountry('IN').map(state => (
-              <option key={state.isoCode} value={state.name} className="text-gray-900 bg-white">
+            {dbStates.map(state => (
+              <option key={state.id} value={state.name} className="text-gray-900 bg-white">
                 {state.name}
               </option>
             ))}
@@ -172,11 +213,11 @@ export const OrganizerSignupForm: React.FC<OrganizerSignupFormProps> = ({ onSubm
           <select 
             {...register('city')} 
             className={inputClass} 
-            disabled={isLoading || !watchedState}
+            disabled={isLoading || !watchedState || dbCities.length === 0}
           >
             <option value="" className="text-gray-900 bg-white">Select City</option>
-            {cities.map(city => (
-              <option key={city.name} value={city.name} className="text-gray-900 bg-white">
+            {dbCities.map(city => (
+              <option key={city.id} value={city.name} className="text-gray-900 bg-white">
                 {city.name}
               </option>
             ))}

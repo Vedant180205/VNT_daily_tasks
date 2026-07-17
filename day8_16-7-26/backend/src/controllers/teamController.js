@@ -32,7 +32,24 @@ const createTeam = async (req, res, next) => {
     }
 };
 
+// Delete a team
+const deleteTeam = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        
+        await teamService.deleteTeam(id);
+        
+        res.status(200).json({
+            success: true,
+            message: "Team deleted successfully"
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
 module.exports = {
     getTeams,
-    createTeam
+    createTeam,
+    deleteTeam
 };

@@ -9,13 +9,15 @@ const playerRoutes = require("./routes/playerRoutes");
 const authRoutes = require("./routes/authRoutes");
 const teamRoutes = require("./routes/teamRoutes");
 const adminRoutes = require("./routes/adminRoutes");
+const locationRoutes = require("./routes/locationRoutes");
 const notFound = require("./middleware/notFound");
 const errorHandler = require("./middleware/errorHandler");
 
 
 const app = express();
 
-
+// Enable CORS - Must be first to handle OPTIONS requests properly
+app.use(cors());
 
 // Security middleware
 app.use(helmet({
@@ -25,13 +27,10 @@ app.use(helmet({
 // Rate limiting
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+    max: 10000, // Increased for development
     message: { success: false, message: "Too many requests, please try again later." }
 });
 app.use("/api", limiter);
-
-// Enable CORS
-app.use(cors());
 
 // Parse JSON request body
 app.use(express.json());
@@ -55,6 +54,7 @@ app.use("/api/players", playerRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/teams", teamRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/locations", locationRoutes);
 
 // 404 Handler
 app.use(notFound);

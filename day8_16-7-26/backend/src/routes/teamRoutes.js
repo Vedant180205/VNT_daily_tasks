@@ -11,4 +11,7 @@ router.get("/", teamController.getTeams);
 // Note: Kept unprotected for now as requested
 router.post("/", validateTeam, teamController.createTeam);
 
+// Endpoint to delete a team
+router.delete("/:id", teamController.deleteTeam);
+
 module.exports = router;

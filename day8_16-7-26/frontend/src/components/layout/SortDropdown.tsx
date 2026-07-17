@@ -10,30 +10,25 @@ interface SortDropdownProps {
 
 export const SortDropdown: React.FC<SortDropdownProps> = ({ sort, order, onSortChange, onOrderChange }) => {
   return (
-    <div className="flex items-center gap-3">
-      <div className="flex items-center gap-2">
-        <span className="text-sm text-muted font-medium">Sort by</span>
-        <Select 
-          value={sort} 
-          onChange={(e) => onSortChange(e.target.value)}
-          className="w-32"
-        >
-          <option value="name">Name</option>
-          <option value="email">Email</option>
-          <option value="created_at">Joined Date</option>
-        </Select>
-      </div>
-      <div className="flex items-center gap-2">
-        <span className="text-sm text-muted font-medium">Order</span>
-        <Select 
-          value={order} 
-          onChange={(e) => onOrderChange(e.target.value)}
-          className="w-32"
-        >
-          <option value="asc">Ascending</option>
-          <option value="desc">Descending</option>
-        </Select>
-      </div>
+    <div className="flex items-center gap-2 bg-gray-50/50 rounded-lg px-2">
+      <Select 
+        value={sort} 
+        onChange={(e) => onSortChange(e.target.value)}
+        className="w-[130px] border-none shadow-none focus-visible:ring-0 text-[14px] h-[40px] bg-transparent font-semibold text-text"
+      >
+        <option value="name">Name</option>
+        <option value="email">Email</option>
+        <option value="created_at">Joined Date</option>
+      </Select>
+      <span className="text-[13px] text-muted font-medium px-2">Order</span>
+      <Select 
+        value={order} 
+        onChange={(e) => onOrderChange(e.target.value)}
+        className="w-[120px] border-none shadow-none focus-visible:ring-0 text-[14px] h-[40px] bg-transparent font-semibold text-text"
+      >
+        <option value="asc">Ascending</option>
+        <option value="desc">Descending</option>
+      </Select>
     </div>
   );
 };

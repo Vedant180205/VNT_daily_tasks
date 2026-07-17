@@ -12,6 +12,7 @@ The Player Management System follows a strict **N-Tier (Layered) Architecture** 
 3. **Services (`/src/services`)**: The core of the application. Contains all business logic, validation rules, and error throwing (e.g., duplicate email checks). It calls the Model layer to persist or retrieve data.
 4. **Models (`/src/models`)**: The data access layer. Executes raw parameterized SQL queries against the MySQL database. Returns formatted dataset results back to the Service layer.
 5. **Middleware (`/src/middleware`)**: Intercepts requests before they reach controllers (e.g., JWT verification, schema validation) or catches errors thrown by the application (Global Error Handler).
+6. **Queues & Workers (`/src/queues` & `/src/workers`)**: Handles asynchronous, long-running tasks (e.g., bulk CSV imports) in the background using BullMQ and Redis. Queues dispatch tasks, while Workers process them independently from the HTTP lifecycle.
 
 ### Frontend Layers
 1. **Pages (`/src/pages`)**: Top-level views orchestrating layouts and integrating URL state.
@@ -67,9 +68,14 @@ Authorization is enforced exclusively at the routing layer via `authMiddleware.j
 2. **Server-Side**: Route middleware (e.g., `validatePlayer`) intercepts the request body, rejecting missing or malformed fields with `400 Bad Request`.
 3. **Business Validation**: The Service layer checks contextual validity (e.g., checking the database to see if an email is already taken), throwing a `409 Conflict` if invalid.
 
-## File Upload Flow
+## Background Job Flow (BullMQ + Redis)
 
-*Not applicable to this project. No file/media storage functionality is currently implemented.*
+1. **Submission**: A controller receives a request for a heavy operation (e.g., `POST /api/players/upload-csv`).
+2. **Dispatch**: The controller parses the payload and dispatches jobs to a BullMQ Queue (e.g., `queue.add()`), then immediately responds to the client.
+3. **Queueing**: The job payload is serialized and stored in Redis by BullMQ.
+4. **Processing**: A Background Worker (running asynchronously) picks up the job from Redis.
+5. **Execution**: The worker validates the data and interacts with the database (Models) to perform the insertion.
+6. **Completion/Failure**: The worker reports success or failure. Failures can be retried automatically based on queue configurations.
 
 ## Error Handling Flow
 
@@ -108,8 +114,10 @@ The system employs a strictly centralized error handling paradigm.
 - **`backend/src/controllers/`**: HTTP request/response orchestration.
 - **`backend/src/middleware/`**: Request interceptors (Validation, Auth, Logging).
 - **`backend/src/models/`**: SQL execution and data persistence.
+- **`backend/src/queues/`**: BullMQ Queue definitions and instantiations.
 - **`backend/src/routes/`**: Endpoint definitions and middleware binding.
 - **`backend/src/services/`**: Application business logic and rule enforcement.
+- **`backend/src/workers/`**: BullMQ Worker processors for background tasks.
 - **`frontend/src/api/`**: Network request definitions and Axios config.
 - **`frontend/src/components/`**: Dumb/Reusable UI elements.
 - **`frontend/src/hooks/`**: Smart/Stateful data fetching logic.

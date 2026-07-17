@@ -27,14 +27,14 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({ totalPlayers }
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
-      className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-8"
+      className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-10"
     >
       <div>
-        <div className="flex items-center gap-3 mb-2">
-          <h1 className="text-3xl md:text-4xl font-extrabold text-text tracking-tight">Player Management</h1>
+        <div className="flex items-center gap-4 mb-2">
+          <h1 className="text-[48px] font-[800] text-[#111827] tracking-tight leading-none stack-sans-headline-unique">Player Management</h1>
           {role && (
-            <span className="px-3 py-1 bg-blue-500/10 text-blue-500 border border-blue-500/20 rounded-full text-sm font-semibold tracking-wide flex items-center gap-1.5">
-              <User size={14} />
+            <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-bold tracking-wide flex items-center gap-1.5 mt-2">
+              <User size={14} strokeWidth={2.5} />
               {role}
             </span>
           )}
@@ -48,11 +48,11 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({ totalPlayers }
         )}
         <button
           onClick={() => authService.logout()}
-          className="flex items-center gap-2 px-4 py-2 h-[52px] bg-red-500/10 hover:bg-red-500/20 text-red-500 border border-red-500/20 rounded-xl transition-colors cursor-pointer"
+          className="flex items-center gap-2 px-5 h-[52px] bg-white hover:bg-gray-50 text-danger border border-[#ECECEC] rounded-[14px] transition-all duration-200 cursor-pointer shadow-sm hover:-translate-y-[1px] hover:shadow-md font-medium"
           title="Logout"
         >
-          <LogOut size={20} />
-          <span className="hidden sm:inline font-medium">Logout</span>
+          <LogOut size={18} strokeWidth={2} />
+          <span className="hidden sm:inline">Logout</span>
         </button>
       </div>
     </motion.div>

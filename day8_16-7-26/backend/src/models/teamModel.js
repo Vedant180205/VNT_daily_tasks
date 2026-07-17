@@ -2,7 +2,7 @@ const pool = require("../config/db");
 
 // Retrieve all teams ordered by ID
 const getAllTeams = async () => {
-    const [rows] = await pool.query("SELECT id, name FROM teams ORDER BY id ASC");
+    const [rows] = await pool.query("SELECT id, name, created_at FROM teams ORDER BY id ASC");
     return rows;
 };
 
@@ -18,8 +18,15 @@ const createTeam = async (name) => {
     return result.insertId;
 };
 
+// Delete a team by id
+const deleteTeam = async (id) => {
+    const [result] = await pool.query("DELETE FROM teams WHERE id = ?", [id]);
+    return result.affectedRows > 0;
+};
+
 module.exports = {
     getAllTeams,
     findTeamByName,
-    createTeam
+    createTeam,
+    deleteTeam
 };

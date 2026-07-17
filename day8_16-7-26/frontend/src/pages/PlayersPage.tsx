@@ -3,8 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { PageContainer } from '../components/layout/PageContainer';
 import { DashboardHeader } from '../components/layout/DashboardHeader';
 import { Toolbar } from '../components/layout/Toolbar';
-import { PlayerGrid } from '../components/players/PlayerGrid';
-import { LoadingSkeleton } from '../components/ui/LoadingSkeleton';
+import { PlayerTable } from '../components/players/PlayerTable';
 import { EmptyState } from '../components/ui/EmptyState';
 import { ErrorState } from '../components/ui/ErrorState';
 import { Pagination } from '../components/ui/Pagination';
@@ -96,9 +95,12 @@ export const PlayersPage: React.FC = () => {
       />
       
       {isInitialLoad ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div className="flex flex-col gap-4">
           {Array.from({ length: limit }).map((_, i) => (
-            <LoadingSkeleton key={i} />
+            <div key={i} className="h-[76px] bg-white rounded-xl border border-gray-100 flex items-center px-6">
+              <div className="w-10 h-10 bg-gray-100 rounded-full animate-pulse mr-4"></div>
+              <div className="w-48 h-4 bg-gray-100 rounded animate-pulse"></div>
+            </div>
           ))}
         </div>
       ) : error ? (
@@ -113,7 +115,7 @@ export const PlayersPage: React.FC = () => {
           animate={{ opacity: isFetching ? 0.6 : 1 }} 
           transition={{ duration: 0.2 }}
         >
-          <PlayerGrid players={players} />
+          <PlayerTable players={players} />
           
           <Pagination 
             currentPage={page} 

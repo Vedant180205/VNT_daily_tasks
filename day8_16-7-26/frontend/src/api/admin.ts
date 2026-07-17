@@ -2,7 +2,12 @@ import { apiClient } from './axios';
 
 export const adminApi = {
   getPendingOrganizers: async () => {
-    const response = await apiClient.get('/api/admin/organizers?status=pending');
+    const response = await apiClient.get('/api/admin/organizers/pending');
+    return response.data;
+  },
+
+  getOrganizers: async () => {
+    const response = await apiClient.get('/api/admin/organizers');
     return response.data;
   },
 

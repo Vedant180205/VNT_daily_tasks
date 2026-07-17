@@ -26,7 +26,20 @@ const createTeam = async (name) => {
     };
 };
 
+// Delete a team by ID
+const deleteTeam = async (id) => {
+    // Optionally check if the team exists first, but DELETE FROM teams WHERE id = ? is fine
+    const success = await teamModel.deleteTeam(id);
+    if (!success) {
+        const error = new Error("Team not found or already deleted");
+        error.statusCode = 404;
+        throw error;
+    }
+    return success;
+};
+
 module.exports = {
     getAllTeams,
-    createTeam
+    createTeam,
+    deleteTeam
 };

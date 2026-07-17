@@ -1,8 +1,5 @@
 import React from 'react';
 import { ToolbarFilters } from './ToolbarFilters';
-import { CreatePlayerDialog } from '../players/CreatePlayerDialog';
-import { BulkUploadDialog } from '../players/BulkUploadDialog';
-import { PendingOrganizersDialog } from '../admin/PendingOrganizersDialog';
 
 interface ToolbarProps {
   search: string;
@@ -21,13 +18,14 @@ interface ToolbarProps {
 
 export const Toolbar: React.FC<ToolbarProps> = (props) => {
   return (
-    <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-6 mb-8 w-full border-b border-border/50 pb-6">
-      <ToolbarFilters {...props} />
-      
-      <div className="flex flex-col sm:flex-row gap-3 w-full xl:w-auto items-center">
-        <PendingOrganizersDialog />
-        <BulkUploadDialog />
-        <CreatePlayerDialog />
+    <div className="flex flex-col gap-6 mb-8 w-full">
+      {/* Action Buttons Top Right */}
+      <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto self-end">
+      </div>
+
+      {/* Filters White Card */}
+      <div className="bg-white border border-gray-100 rounded-[18px] p-4 shadow-[0_8px_30px_rgba(15,23,42,0.05)] flex items-center w-full">
+        <ToolbarFilters {...props} />
       </div>
     </div>
   );

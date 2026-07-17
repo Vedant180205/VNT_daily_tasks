@@ -1,4 +1,4 @@
-﻿const adminService = require("../services/adminService");
+const adminService = require("../services/adminService");
 
 const getPendingOrganizers = async (req, res, next) => {
     try {
@@ -25,7 +25,20 @@ const approveOrganizer = async (req, res, next) => {
     }
 };
 
+const getOrganizers = async (req, res, next) => {
+    try {
+        const organizers = await adminService.getAllOrganizers();
+        res.status(200).json({
+            success: true,
+            data: organizers
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
 module.exports = {
     getPendingOrganizers,
-    approveOrganizer
+    approveOrganizer,
+    getOrganizers
 };

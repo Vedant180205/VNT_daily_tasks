@@ -1,4 +1,4 @@
-﻿const adminModel = require("../models/adminModel");
+const adminModel = require("../models/adminModel");
 const userModel = require("../models/userModel");
 const pool = require("../config/db");
 
@@ -55,7 +55,12 @@ const approveOrganizer = async (id) => {
     }
 };
 
+const getAllOrganizers = async () => {
+    return await adminModel.getAllOrganizers();
+};
+
 module.exports = {
     getPendingOrganizers,
-    approveOrganizer
+    approveOrganizer,
+    getAllOrganizers
 };

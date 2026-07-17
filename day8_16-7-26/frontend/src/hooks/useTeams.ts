@@ -1,5 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
-import { fetchTeams } from '../api/teamApi';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { fetchTeams, createTeam, deleteTeam } from '../api/teamApi';
 
 export const useTeams = () => {
   const query = useQuery({
@@ -13,4 +13,28 @@ export const useTeams = () => {
     loading: query.isLoading,
     error: query.isError,
   };
+};
+
+export const useCreateTeam = (onSuccess?: () => void) => {
+  const queryClient = useQueryClient();
+  
+  return useMutation({
+    mutationFn: createTeam,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['teams'] });
+      if (onSuccess) onSuccess();
+    }
+  });
+};
+
+export const useDeleteTeam = (onSuccess?: () => void) => {
+  const queryClient = useQueryClient();
+  
+  return useMutation({
+    mutationFn: deleteTeam,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['teams'] });
+      if (onSuccess) onSuccess();
+    }
+  });
 };

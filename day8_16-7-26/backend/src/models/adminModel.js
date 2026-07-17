@@ -1,4 +1,4 @@
-﻿const pool = require("../config/db");
+const pool = require("../config/db");
 
 const getPendingOrganizers = async () => {
     const [rows] = await pool.query(
@@ -23,8 +23,16 @@ const approveOrganizer = async (organizerId, userId) => {
     return result.affectedRows > 0;
 };
 
+const getAllOrganizers = async () => {
+    const [rows] = await pool.query(
+        "SELECT id, full_name, email, phone, org_name, address, state, city, zone, created_at FROM organizers WHERE approval_status = 1"
+    );
+    return rows;
+};
+
 module.exports = {
     getPendingOrganizers,
     getOrganizerById,
-    approveOrganizer
+    approveOrganizer,
+    getAllOrganizers
 };
