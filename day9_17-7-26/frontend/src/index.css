@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #F7F8FC;
+  --color-surface: #FFFFFF;
+  --color-border: #E5E7EB;
+  --color-primary: #5B5CEB;
+  --color-primary-hover: #7269FF;
+  --color-text: #111827;
+  --color-muted: #6B7280;
+  --color-success: #22C55E;
+  --color-danger: #EF4444;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: "Stack Sans Headline", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.stack-sans-headline-unique {
+  font-family: "Stack Sans Headline", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
