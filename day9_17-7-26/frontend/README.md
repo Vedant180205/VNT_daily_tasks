@@ -1,14 +1,14 @@
-# Frontend: Player Management Dashboard 🖥️
+# Frontend: Enrollments DataTable 🖥️
 
 This is the React/Vite frontend for the Player Management application.
 
-## ⚡ Day 8 Updates: RBAC & Complex Workflows
-The frontend has been massively expanded to support Role-Based Access Control and multi-step forms:
+## ⚡ Day 9 Updates: Enrollments & Advanced DataTable
+The frontend has been updated to include a robust, high-performance datatable for managing 1,000+ player enrollments:
 
-- **Organizer Registration Flow**: A comprehensive form with regex validation for PAN and Aadhaar, integrated with a custom `DocumentUploader` that accurately enforces file limits.
-- **Admin Dashboards**: A dedicated `PendingOrganizersDialog` allows Admins to view applications, inspect uploaded documents, and Approve/Reject users.
-- **Global Permission Handling**: `react-query` mutations (`useMutations.ts`) have been upgraded to gracefully intercept `403 Forbidden` responses from the backend, instantly translating them into beautiful Toast error alerts.
-- **Dynamic UI States**: The `DashboardHeader` now fetches and renders the user's specific role badge directly from the backend profile.
+- **Server-Side Pagination:** Integrated `@tanstack/react-query` to fetch data in chunks of 50, ensuring snappy performance regardless of database size.
+- **URL-Synced Filters:** The Search Bar, Status Dropdown, Invite Dropdown, Role Dropdown, and Team Dropdown all sync their state directly to the URL parameters using `useSearchParams`.
+- **Dynamic Badge UI:** Raw database flags (e.g., `status = 1`) are automatically parsed into beautiful, colored UI pills (e.g., green "Paid" badge) via centralized dictionary mappings.
+- **CSV Export:** Includes a direct "Export CSV" feature that honors the currently active filters and downloads a cleanly formatted `.csv` file.
 
 ## ⚙️ Setup Instructions
 
