@@ -1,4 +1,4 @@
-# Day 11: MVP Ranking System & Enterprise UX Overhaul ???
+# Day 11: MVP Ranking System & Enterprise UX Overhaul 🏆✨
 
 This documentation covers the **Day 11** implementation, which focused on two major pillars:
 1. Building a robust **MVP Ranking System** with Redis caching and background worker syncs.

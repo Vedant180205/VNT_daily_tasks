@@ -1,4 +1,4 @@
-# Backend: MVP Sync Engine & Scalable API Architecture ????
+# Backend: MVP Sync Engine & Scalable API Architecture 🏆⚙️
 
 This is the Express backend for the Player Management application, updated for **Day 11** to manage scalable MVP calculations via background processing, high-performance Redis caching, and robust database migrations.
 

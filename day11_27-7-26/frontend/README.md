@@ -1,4 +1,4 @@
-# Frontend: Enterprise UX/UI & SaaS Dashboard Engine ????
+# Frontend: Enterprise UX/UI & SaaS Dashboard Engine 🖥️✨
 
 This is the React/Vite/Tailwind frontend for the Player Management application, completely overhauled for **Day 11** to transform the product into a high-end enterprise sports management platform.
 
