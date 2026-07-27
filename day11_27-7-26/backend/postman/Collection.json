@@ -1,0 +1,81 @@
+{
+  "info": {
+    "name": "Player Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get All Players",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/players?page=1&limit=10",
+          "host": ["{{base_url}}"],
+          "path": ["api", "players"],
+          "query": [
+            { "key": "page", "value": "1" },
+            { "key": "limit", "value": "10" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Player By ID",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/players/1",
+          "host": ["{{base_url}}"],
+          "path": ["api", "players", "1"]
+        }
+      }
+    },
+    {
+      "name": "Create Player",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"phone\": \"1234567890\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/players",
+          "host": ["{{base_url}}"],
+          "path": ["api", "players"]
+        }
+      }
+    },
+    {
+      "name": "Update Player",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"John Updated\",\n  \"email\": \"john.updated@example.com\",\n  \"phone\": \"0987654321\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/players/1",
+          "host": ["{{base_url}}"],
+          "path": ["api", "players", "1"]
+        }
+      }
+    },
+    {
+      "name": "Delete Player",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "{{base_url}}/api/players/1",
+          "host": ["{{base_url}}"],
+          "path": ["api", "players", "1"]
+        }
+      }
+    }
+  ]
+}
