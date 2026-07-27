@@ -6,7 +6,7 @@ This documentation covers the **Day 11** implementation, which focused on two ma
 
 ---
 
-## ?? 1. MVP Ranking System Architecture
+## 🏆 1. MVP Ranking System Architecture
 
 To handle 10,000+ players seamlessly, we implemented a real-time, scalable leaderboard system exactly like production environments.
 
@@ -29,7 +29,7 @@ Fetching rankings for 10,000+ players is heavy. We integrated **Redis** to ensur
 
 ---
 
-## ?? 2. Enterprise UX/UI Overhaul
+## 🎨 2. Enterprise UX/UI Overhaul
 
 The entire frontend was overhauled, moving away from simple tables to a unified, premium design system inspired by top-tier SaaS dashboards.
 
@@ -50,7 +50,7 @@ Every single data grid was refactored for uniformity:
 
 ---
 
-## ?? 3. Getting Started & Running Locally
+## 🚀 3. Getting Started & Running Locally
 
 Follow these steps to run the complete stack locally:
 
@@ -94,4 +94,3 @@ Follow these steps to run the complete stack locally:
 ---
 
 *This milestone concludes the transformation of the product into a beautifully designed, highly scalable, and structurally complete platform.*
-

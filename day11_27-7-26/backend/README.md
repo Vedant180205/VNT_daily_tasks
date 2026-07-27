@@ -4,7 +4,7 @@ This is the Express backend for the Player Management application, updated for *
 
 ---
 
-## ?? Key Features & Services
+## 🚀 Key Features & Services
 
 ### 1. BullMQ Background Worker (`src/workers/mvpWorker.js`)
 * **Asynchronous Sync**: We moved heavy database operations off the main thread. The MVP worker runs periodically (using `BullMQ`) to aggregate thousands of player scores across `mvp_performance_logs`.
@@ -22,18 +22,18 @@ This is the Express backend for the Player Management application, updated for *
 
 ---
 
-## ?? API Endpoints
+## ⚙️ API Endpoints
 
-### ?? MVP & Leaderboard
+### 🏆 MVP & Leaderboard
 * `GET /api/mvp/leaderboard`: Retrieves cached leaderboard rankings via Redis.
 * `GET /api/mvp/logs`: Retrieves paginated raw performance logs.
 
-### ?? Dashboard Metrics
+### 📊 Dashboard Metrics
 * `GET /api/dashboard`: Aggregates active teams, pending organizers, top players, and registration charts securely via SQL aggregates.
 
 ---
 
-## ?? Setup Instructions
+## ⚙️ Setup Instructions
 
 1. **Install Dependencies**
    ```bash
@@ -60,4 +60,3 @@ This is the Express backend for the Player Management application, updated for *
    ```bash
    npm run dev
    ```
-

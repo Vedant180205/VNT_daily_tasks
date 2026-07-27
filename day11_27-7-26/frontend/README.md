@@ -4,7 +4,7 @@ This is the React/Vite/Tailwind frontend for the Player Management application, 
 
 ---
 
-## ? Day 11 Highlights & Key Components
+## ⚡ Day 11 Highlights & Key Components
 
 ### 1. Unified Card Design System (`src/components/ui/Card.tsx`)
 Replaced basic scattered table layouts with a robust, modular design system:
@@ -28,7 +28,7 @@ Successfully migrated the platform to **Tailwind CSS v4**:
 
 ---
 
-## ?? Setup Instructions
+## ⚙️ Setup Instructions
 
 1. **Install Dependencies**
    ```bash
@@ -40,4 +40,3 @@ Successfully migrated the platform to **Tailwind CSS v4**:
    npm run dev
    ```
    *(The dashboard will be active on `http://localhost:5173`)*
-
