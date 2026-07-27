@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS countries (
+    id INT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    iso2 CHAR(2) NOT NULL,
+    iso3 CHAR(3) NOT NULL,
+    phonecode VARCHAR(255),
+    capital VARCHAR(255),
+    currency VARCHAR(255),
+    currency_name VARCHAR(255),
+    currency_symbol VARCHAR(255),
+    region VARCHAR(255),
+    subregion VARCHAR(255),
+    latitude DECIMAL(10, 8),
+    longitude DECIMAL(11, 8),
+    emoji VARCHAR(191),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_iso2 (iso2),
+    INDEX idx_iso3 (iso3),
+    INDEX idx_name (name)
+);
