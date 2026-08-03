@@ -1,0 +1,8 @@
+name,email,phone,team_id
+Valid Player One,valid1@example.com,1234567890,1
+Valid Player Two,valid2@example.com,0987654321,2
+Missing Email,,1112223333,1
+,no.name@example.com,9998887777,2
+Bad Phone,bad.phone@example.com,123,3
+Invalid Email Format,not-an-email,5554443333,1
+Valid Player Three,valid3@example.com,7778889999,3

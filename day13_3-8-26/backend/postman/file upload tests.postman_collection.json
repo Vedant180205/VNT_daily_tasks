@@ -1,0 +1,341 @@
+{
+  "info": {
+    "_postman_id": "ea3ec3ea-81a2-4e68-8ad0-3a6ce6717f4a",
+    "name": "file upload tests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "56362892",
+    "_collection_link": "https://go.postman.co/collection/56362892-ea3ec3ea-81a2-4e68-8ad0-3a6ce6717f4a?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Valid Upload",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "name",
+              "value": "valid user",
+              "type": "text",
+              "uuid": "5d643642-5555-40e3-b4ed-b6a116c02fc5"
+            },
+            {
+              "key": "email",
+              "value": "valid@test.com",
+              "type": "text",
+              "uuid": "1e2af747-e267-4160-a926-2a5b73abab63"
+            },
+            {
+              "key": "phone",
+              "value": "1234567890",
+              "type": "text",
+              "uuid": "9109b52f-88b5-4ed8-af20-f3edc8d72082"
+            },
+            {
+              "key": "team_id",
+              "value": "1",
+              "type": "text",
+              "uuid": "65847a6b-3ef2-4a9e-b657-d278fb72bb0a"
+            },
+            {
+              "key": "avatar",
+              "type": "file",
+              "uuid": "47eb4759-5220-4ce6-9a11-db7fdd3ff317",
+              "value": null
+            },
+            {
+              "key": "gallery",
+              "type": "file",
+              "uuid": "d028945f-ccaf-4850-9c4e-3e27ce664135",
+              "value": null
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/players",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "players"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "large file size",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "name",
+              "value": "valid user",
+              "type": "text",
+              "uuid": "5d643642-5555-40e3-b4ed-b6a116c02fc5"
+            },
+            {
+              "key": "email",
+              "value": "valid@test.com",
+              "type": "text",
+              "uuid": "1e2af747-e267-4160-a926-2a5b73abab63"
+            },
+            {
+              "key": "phone",
+              "value": "1234567890",
+              "type": "text",
+              "uuid": "9109b52f-88b5-4ed8-af20-f3edc8d72082"
+            },
+            {
+              "key": "team_id",
+              "value": "1",
+              "type": "text",
+              "uuid": "65847a6b-3ef2-4a9e-b657-d278fb72bb0a"
+            },
+            {
+              "key": "avatar",
+              "type": "file",
+              "uuid": "47eb4759-5220-4ce6-9a11-db7fdd3ff317",
+              "value": null
+            },
+            {
+              "key": "gallery",
+              "type": "file",
+              "uuid": "d028945f-ccaf-4850-9c4e-3e27ce664135",
+              "value": null
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/players",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "players"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Wrong File Type",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "name",
+              "value": "valid user",
+              "type": "text",
+              "uuid": "5d643642-5555-40e3-b4ed-b6a116c02fc5"
+            },
+            {
+              "key": "email",
+              "value": "valid@test.com",
+              "type": "text",
+              "uuid": "1e2af747-e267-4160-a926-2a5b73abab63"
+            },
+            {
+              "key": "phone",
+              "value": "1234567890",
+              "type": "text",
+              "uuid": "9109b52f-88b5-4ed8-af20-f3edc8d72082"
+            },
+            {
+              "key": "team_id",
+              "value": "1",
+              "type": "text",
+              "uuid": "65847a6b-3ef2-4a9e-b657-d278fb72bb0a"
+            },
+            {
+              "key": "avatar",
+              "type": "file",
+              "uuid": "47eb4759-5220-4ce6-9a11-db7fdd3ff317",
+              "value": null
+            },
+            {
+              "key": "gallery",
+              "type": "file",
+              "uuid": "d028945f-ccaf-4850-9c4e-3e27ce664135",
+              "value": null
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/players",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "players"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Too many images",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "name",
+              "value": "valid user",
+              "type": "text",
+              "uuid": "5d643642-5555-40e3-b4ed-b6a116c02fc5"
+            },
+            {
+              "key": "email",
+              "value": "toomany@test.com",
+              "type": "text",
+              "uuid": "1e2af747-e267-4160-a926-2a5b73abab63"
+            },
+            {
+              "key": "phone",
+              "value": "1234567890",
+              "type": "text",
+              "uuid": "9109b52f-88b5-4ed8-af20-f3edc8d72082"
+            },
+            {
+              "key": "team_id",
+              "value": "1",
+              "type": "text",
+              "uuid": "65847a6b-3ef2-4a9e-b657-d278fb72bb0a"
+            },
+            {
+              "key": "avatar",
+              "type": "file",
+              "uuid": "47eb4759-5220-4ce6-9a11-db7fdd3ff317",
+              "value": null
+            },
+            {
+              "key": "gallery",
+              "type": "file",
+              "uuid": "d028945f-ccaf-4850-9c4e-3e27ce664135",
+              "value": null
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/players",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "players"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "No avatar",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "name",
+              "value": "valid user",
+              "type": "text",
+              "uuid": "5d643642-5555-40e3-b4ed-b6a116c02fc5"
+            },
+            {
+              "key": "email",
+              "value": "noavatar@test.com",
+              "type": "text",
+              "uuid": "1e2af747-e267-4160-a926-2a5b73abab63"
+            },
+            {
+              "key": "phone",
+              "value": "1234567890",
+              "type": "text",
+              "uuid": "9109b52f-88b5-4ed8-af20-f3edc8d72082"
+            },
+            {
+              "key": "team_id",
+              "value": "1",
+              "type": "text",
+              "uuid": "65847a6b-3ef2-4a9e-b657-d278fb72bb0a"
+            },
+            {
+              "key": "avatar",
+              "type": "file",
+              "uuid": "47eb4759-5220-4ce6-9a11-db7fdd3ff317",
+              "value": null,
+              "disabled": true
+            },
+            {
+              "key": "gallery",
+              "type": "file",
+              "uuid": "d028945f-ccaf-4850-9c4e-3e27ce664135",
+              "value": null
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/players",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "players"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{jwt_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
+}
