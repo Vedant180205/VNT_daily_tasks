@@ -1,62 +1,37 @@
-# Backend: MVP Sync Engine & Scalable API Architecture 🏆⚙️
+# PlayerHub Backend
 
-This is the Express backend for the Player Management application, updated for **Day 11** to manage scalable MVP calculations via background processing, high-performance Redis caching, and robust database migrations.
+The Express.js/Node.js backend for the PlayerHub application.
 
----
+## Technologies Used
+- Node.js & Express.js
+- MySQL (Database)
+- Redis (Caching & Sorted Sets)
+- BullMQ (Background Jobs)
+- Multer (File Uploads)
+- JWT (Authentication)
 
-## 🚀 Key Features & Services
+## Day 13: Redis Integration & API Hardening
+During Day 13, major architectural upgrades were made leveraging Redis to drastically scale performance and data integrity:
+- **Redis Response Caching (Stage 3)**: Implemented `cacheMiddleware.js` and `cacheKeyBuilder.js` to intelligently cache the `GET /api/players` and `GET /api/teams` JSON payloads for 60 seconds. This avoids hitting MySQL completely on hot routes.
+- **Sorted Set Autocomplete (Stage 5)**: Created an advanced `searchService.js` that pulls player names from MySQL on startup and indexes them into a Redis Sorted Set (`players_autocomplete`). Created the `GET /api/players/autocomplete` endpoint for sub-millisecond prefix searching.
+- **Idempotency Locks (Stage 7)**: Built `idempotencyMiddleware.js` to use Redis `SET NX` locks. This automatically prevents duplicate database inserts when the frontend `POST /api/players` endpoint is spammed by rapidly double-clicking.
+- **Validation Improvements**: Tightened `validatePlayer.js` to strictly enforce Avatar presence and unique Gallery array uploads before hitting standard controllers.
 
-### 1. BullMQ Background Worker (`src/workers/mvpWorker.js`)
-* **Asynchronous Sync**: We moved heavy database operations off the main thread. The MVP worker runs periodically (using `BullMQ`) to aggregate thousands of player scores across `mvp_performance_logs`.
-* **Upsert Logic**: Calculates `total_points` (batting + bowling + fielding) for every player where `is_mft = 1`, and efficiently bulk upserts records into `mvp_players`.
-* **Ranking Algorithm**: Generates descending integer rankings based on real-time total scores.
+## Getting Started
 
-### 2. Redis Caching Optimization (`src/services/mvpService.js`)
-* Handles 10,000+ players efficiently without database strain.
-* Implements a `Cache-Aside` pattern on the `GET /api/mvp/leaderboard` route using the `mvp:leaderboard` key.
-* The cache TTL ensures extremely fast (<5ms) sub-millisecond response times for global queries while maintaining accuracy.
-
-### 3. Server Pagination & Grid Sorting
-* Built generic server-side pagination controllers inside `playerController.js`, `mvpController.js`, and `enrollmentController.js`.
-* Supported robust query parameter parsing (e.g. `?page=1&limit=50&status=1`) allowing the frontend grid to securely paginate through large datasets.
-
----
-
-## ⚙️ API Endpoints
-
-### 🏆 MVP & Leaderboard
-* `GET /api/mvp/leaderboard`: Retrieves cached leaderboard rankings via Redis.
-* `GET /api/mvp/logs`: Retrieves paginated raw performance logs.
-
-### 📊 Dashboard Metrics
-* `GET /api/dashboard`: Aggregates active teams, pending organizers, top players, and registration charts securely via SQL aggregates.
-
----
-
-## ⚙️ Setup Instructions
-
-1. **Install Dependencies**
+1. Install dependencies:
    ```bash
    npm install
    ```
 
-2. **Configure Environment Variables**
-   Ensure `.env` contains Redis configuration variables.
-   ```env
-   REDIS_HOST=127.0.0.1
-   REDIS_PORT=6379
-   ```
-
-3. **Database Preparation**
-   Run the schema migration scripts to build the `mvp_performance_logs` and `mvp_players` tables:
-   ```bash
-   npm run migrate
-   ```
-
-4. **Start Redis**
-   Ensure a local or remote Redis instance is running.
-
-5. **Start the Development Server**
+2. Start the development server (runs on port 3000):
    ```bash
    npm run dev
    ```
+
+3. Start the BullMQ background worker:
+   ```bash
+   npm run worker
+   ```
+
+*Note: Ensure your MySQL and Redis servers are running locally before starting the backend.*

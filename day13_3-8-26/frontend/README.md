@@ -1,42 +1,34 @@
-# Frontend: Enterprise UX/UI & SaaS Dashboard Engine 🖥️✨
+# PlayerHub Frontend
 
-This is the React/Vite/Tailwind frontend for the Player Management application, completely overhauled for **Day 11** to transform the product into a high-end enterprise sports management platform.
+The React/Vite frontend for the PlayerHub application.
 
----
+## Technologies Used
+- React (Vite)
+- TypeScript
+- Tailwind CSS (Styling)
+- React Query (Data Fetching & State)
+- React Hook Form + Zod (Form Validation)
+- Lucide React (Icons)
+- Framer Motion (Animations)
 
-## ⚡ Day 11 Highlights & Key Components
+## Day 13: UI/UX Enhancements & Integrations
+During Day 13, several critical updates were made to the frontend architecture:
+- **Instant Autocomplete Search**: Rebuilt the `SearchBar.tsx` to connect to the backend Redis Sorted Set via `GET /api/players/autocomplete`, featuring a 180ms debounce and responsive dropdown UI.
+- **Form Validation (Pre-Submit)**: Enhanced `PlayerForm.tsx` and `ImageUploader.tsx` to enforce strict "Avatar Required" rules before API submission, showing clear error states visually.
+- **Backend Error Mapping**: Fixed a critical bug in `useMutations.ts` so that actual backend error strings (e.g. `400 Bad Request` or `429 Too Many Requests` from Idempotency locks) are passed into Toast notifications rather than being swallowed.
+- **Player Details Dialog**: Created `PlayerDetailsDialog.tsx` and a "View" button in `PlayerTable.tsx` to consume the `GET /api/players/:id` endpoint for full profile previews (including avatars and gallery grids).
+- **Navigation Layout Fixes**: Restored missing route links to the `Sidebar.tsx` (Upload Players, Enrollments).
 
-### 1. Unified Card Design System (`src/components/ui/Card.tsx`)
-Replaced basic scattered table layouts with a robust, modular design system:
-* Introduced `<Card>` and `<CardContent>` wrappers globally.
-* Applied enterprise styling: soft drop shadows (`shadow-[0_8px_30px_rgba(15,23,42,0.05)]`), sleek border radiuses (`rounded-[18px]`), and high-contrast typography schemas.
+## Getting Started
 
-### 2. Standardized Data Grids
-Every module was overhauled to match the new visual guidelines:
-* **Players & Organizers**: Added robust sticky toolbars, global search bars, custom status filters, and universal `<Pagination>`.
-* **Enrollments**: Completely refactored the complex dual-action grid into a standardized `<Card>` layout.
-* **Activity Logs**: Integrated the standardized backend paginated logs directly into a responsive table structure showing raw MVP performance data.
-
-### 3. Tailwind v4 Architecture
-Successfully migrated the platform to **Tailwind CSS v4**:
-* Updated `index.css` to use modern `@theme` token definitions and `@config` integrations.
-* Resolved deprecated opacity utilities, migrating entire codebases to slash syntax (e.g., `bg-white/70`, `border-white/20`).
-
-### 4. Interactive KPI Dashboard
-* Integrated Recharts to provide dynamic line charts mapping player registration trends.
-* Refactored static KPI cards with hover-animations and rich gradients.
-
----
-
-## ⚙️ Setup Instructions
-
-1. **Install Dependencies**
+1. Install dependencies:
    ```bash
    npm install
    ```
 
-2. **Start the Development Server**
+2. Run the development server:
    ```bash
    npm run dev
    ```
-   *(The dashboard will be active on `http://localhost:5173`)*
+
+The application will be available at `http://localhost:5173`.
